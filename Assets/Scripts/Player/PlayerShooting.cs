@@ -5,12 +5,15 @@ public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private OnScreenJoystick aimJoystick;
     [SerializeField] private PlayerProjectile projectilePrefab;
+    [SerializeField] private GameObject muzzleEffectPrefab;
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private Transform playerBody; // rotate edilecek karakter
     [SerializeField] private float fireRate = 0.15f;
     [SerializeField] private float rotateSpeed = 720f;
     [SerializeField] private int prewarmCount = 20;
 
+    private ParticleSystem muzzleEffect;
+    private GameObject muzzleEffectObj;
     private ObjectPool<PlayerProjectile> projectilePool;
     private Coroutine fireRoutine;
     private bool isFiring = false;
@@ -20,6 +23,8 @@ public class PlayerShooting : MonoBehaviour
     {
         projectilePool = new ObjectPool<PlayerProjectile>(projectilePrefab, prewarmCount);
         animator = GetComponent<Animator>();
+        muzzleEffectObj = Instantiate(muzzleEffectPrefab, shootingPoint.position, shootingPoint.rotation, shootingPoint);
+        muzzleEffect = muzzleEffectObj.GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -62,6 +67,9 @@ public class PlayerShooting : MonoBehaviour
         isFiring = false;
         if (fireRoutine != null)
             StopCoroutine(fireRoutine);
+        
+        if(muzzleEffect.isPlaying)
+                muzzleEffect.Stop();
     }
 
     private IEnumerator FireLoop()
@@ -69,6 +77,8 @@ public class PlayerShooting : MonoBehaviour
         while (isFiring)
         {
             SpawnProjectile();
+            if(!muzzleEffect.isPlaying)
+                muzzleEffect.Play();
             yield return new WaitForSeconds(fireRate);
         }
     }

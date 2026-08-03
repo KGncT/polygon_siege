@@ -36,6 +36,15 @@ public class ObjectPool<T> where T : Component
         return obj;
     }
 
+    // public T Get(Vector3 position)
+    // {
+    //     T obj = inactiveObjects.Count > 0 ? inactiveObjects.Dequeue() : CreateNew();
+
+    //     obj.transform.position = position;
+    //     obj.gameObject.SetActive(true);
+    //     return obj;
+    // }
+
     public void Return(T obj)
     {
         obj.gameObject.SetActive(false);

@@ -21,7 +21,7 @@ public class WeaponPositioner : MonoBehaviour
         if(weapon != null && weaponPoint != null)
         {
             weapon.position = weaponPoint.position;
-            weapon.rotation = weaponPoint.rotation;
+            // weapon.rotation = weaponPoint.rotation;
         }
     }
 

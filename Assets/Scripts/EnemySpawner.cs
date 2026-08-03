@@ -73,6 +73,7 @@ public class EnemySpawner : MonoBehaviour
         Quaternion spawnRot = Quaternion.LookRotation((player.position - spawnPos).normalized);
 
         ObjectPool<Enemy> pool = GetOrCreatePool(entry);
+        // Enemy enemy = pool.Get(spawnPos);
         Enemy enemy = pool.Get(spawnPos, spawnRot);
         enemy.Init(entry.enemyData, player, (e) => pool.Return(e));
     }
