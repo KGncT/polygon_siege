@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyDataSO data;
@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float hopFrequency = 6f;
     [SerializeField] private float tiltAngle = 15f;
     [SerializeField] private Transform visualRoot;
+    [SerializeField] private Image healthBarImage;
     private Vector3 baseLocalPosition;
     private float walkTimer;    
 
@@ -83,27 +84,27 @@ public class Enemy : MonoBehaviour
     }
 
     private void Walk(Vector3 direction)
-{
-    // İlerleme
-    transform.position += direction * data.speed * Time.deltaTime;
-    transform.rotation = Quaternion.LookRotation(direction);
+    {
+        // İlerleme
+        transform.position += direction * data.speed * Time.deltaTime;
+        transform.rotation = Quaternion.LookRotation(direction);
 
-    // Yürüyüş fazı ilerlet
-    walkTimer += Time.deltaTime * hopFrequency;
+        // Yürüyüş fazı ilerlet
+        walkTimer += Time.deltaTime * hopFrequency;
 
-    // Tek bir sinüs dalgası: hem zıplama hem yaslanma AYNI fazdan türesin
-    float wave = Mathf.Sin(walkTimer * Mathf.PI); // -1..1 arası
+        // Tek bir sinüs dalgası: hem zıplama hem yaslanma AYNI fazdan türesin
+        float wave = Mathf.Sin(walkTimer * Mathf.PI); // -1..1 arası
 
-    // Zıplama: sadece pozitif kısmı kullan (yerden kalkıp inme)
-    float hop = Mathf.Abs(wave);
-    Vector3 hopOffset = Vector3.up * hop * hopHeight;
+        // Zıplama: sadece pozitif kısmı kullan (yerden kalkıp inme)
+        float hop = Mathf.Abs(wave);
+        Vector3 hopOffset = Vector3.up * hop * hopHeight;
 
-    // Yaslanma: wave'in işaretine göre direkt sağ/sol tilt (ekstra Sign çarpımı YOK)
-    float tilt = wave * tiltAngle;
+        // Yaslanma: wave'in işaretine göre direkt sağ/sol tilt (ekstra Sign çarpımı YOK)
+        float tilt = wave * tiltAngle;
 
-    visualRoot.localPosition = baseLocalPosition + hopOffset;
-    visualRoot.localRotation = Quaternion.Euler(0f, 0f, tilt);
-}
+        visualRoot.localPosition = baseLocalPosition + hopOffset;
+        visualRoot.localRotation = Quaternion.Euler(0f, 0f, tilt);
+    }
 
     private void ResetWalkVisual()
     {
@@ -124,6 +125,7 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log(currentHealth);
         currentHealth -= amount;
+        UpdateHealthbar();
         if (currentHealth <= 0f)
         {
             Die();
@@ -138,4 +140,12 @@ public class Enemy : MonoBehaviour
 
     // Mermiyle temas (PlayerProjectile'daki "Enemy" tag kontrolüyle uyumlu)
     public int ScoreValue => data.scoreValue;
+
+    private void UpdateHealthbar()
+    {
+        if (healthBarImage != null)
+        {
+            healthBarImage.fillAmount = currentHealth / data.maxHealth;
+        }
+    }
 }

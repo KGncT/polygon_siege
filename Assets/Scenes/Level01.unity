@@ -1460,7 +1460,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting
   aimJoystick: {fileID: 1594801989}
-  projectilePrefab: {fileID: 9012576349765009064, guid: dc981acab163e8548ac467dcf5b761b4, type: 3}
+  projectilePrefab: {fileID: 4347755235485839549, guid: c70ae965149ddc46192a39c063ddf3cc, type: 3}
+  muzzleEffectPrefab: {fileID: 1575262713244903697, guid: c56e5ed161e8222f885951be74cda339, type: 3}
   shootingPoint: {fileID: 1039919597}
   playerBody: {fileID: 889361099}
   fireRate: 0.15
@@ -1643,6 +1644,22 @@ PrefabInstance:
     - target: {fileID: 2903258406986535319, guid: 31895ed7bc1fbe288b7cb208449f06b8, type: 3}
       propertyPath: m_TagString
       value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021715774517660346, guid: 31895ed7bc1fbe288b7cb208449f06b8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021715774517660346, guid: 31895ed7bc1fbe288b7cb208449f06b8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021715774517660346, guid: 31895ed7bc1fbe288b7cb208449f06b8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021715774517660346, guid: 31895ed7bc1fbe288b7cb208449f06b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1973,7 +1990,7 @@ GameObject:
   - component: {fileID: 1281124718}
   - component: {fileID: 1281124717}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2115,7 +2132,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1339470025}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f5bd1c96371095eb8058e3edb544d2a, type: 3}
   m_Name: 
@@ -2846,6 +2863,10 @@ PrefabInstance:
     - target: {fileID: 6355087003333678684, guid: 282112b32e58dc80f9b448f53ec1879b, type: 3}
       propertyPath: m_Name
       value: character-p
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355087003333678684, guid: 282112b32e58dc80f9b448f53ec1879b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7974803596838015146, guid: 282112b32e58dc80f9b448f53ec1879b, type: 3}
       propertyPath: m_LocalRotation.w
