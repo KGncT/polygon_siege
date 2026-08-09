@@ -1,5 +1,11 @@
 using UnityEngine;
 
+[System.Serializable]
+public class EnemyAudioSet
+{
+    public SoundDataSO death;
+}
+
 [CreateAssetMenu(fileName = "EnemyDataSO", menuName = "PolygonSiege/Enemy Data")]
 public class EnemyDataSO : ScriptableObject
 {
@@ -19,4 +25,8 @@ public class EnemyDataSO : ScriptableObject
     [Header("Behaviour (opsiyonel)")]
     public float attackRange = 1.2f;
     public float attackCooldown = 1f;
+    public GameObject deathEffectPrefab;
+
+    [Header("Audio")]
+    public EnemyAudioSet audio;
 }

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff24a411aa28c4a3bf758ef51df1dec, type: 3}
+  m_Name: WeaponData
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponDataSO
+  fireRate: 0
+  projectilePrefab: {fileID: 4347755235485839549, guid: c70ae965149ddc46192a39c063ddf3cc, type: 3}
+  audio:
+    shoot: {fileID: 11400000, guid: f4c7b6c0e6d595f53b22381ab0fe288d, type: 2}
+    reload: {fileID: 11400000, guid: 261b88011fc5c2e3f9d239c14990c0da, type: 2}
+    empty: {fileID: 11400000, guid: 4595509c98bf0fb88b44e394036b5ea7, type: 2}

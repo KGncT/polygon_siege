@@ -22,7 +22,6 @@ public class LevelManager : MonoBehaviour, ILevelEnemyProvider
     [Header("Player Stats")]
     public int characterLives = 3;
     public float characterEnergy = 100f;
-    public int score = 0;
 
     [Header("Wave / Enemy Ayarları")]
     [SerializeField] private List<WaveConfig> waves;
@@ -53,11 +52,6 @@ public class LevelManager : MonoBehaviour, ILevelEnemyProvider
     public void DecreaseEnergy(float amount)
     {
         characterEnergy = Mathf.Max(0f, characterEnergy - amount);
-    }
-
-    public void IncreaseScore(int amount = 1)
-    {
-        score += amount;
     }
 
     // ILevelEnemyProvider implementasyonu

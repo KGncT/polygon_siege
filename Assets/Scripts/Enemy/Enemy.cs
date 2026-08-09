@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private EnemyDataSO data;
+    [SerializeField] private EnemyDataSO enemyData;
 
     private Transform target; // player
     private float currentHealth;
@@ -33,17 +33,17 @@ public class Enemy : MonoBehaviour
     // EnemySpawner tarafından spawn edilirken çağrılır
     public void Init(EnemyDataSO enemyData, Transform playerTarget, System.Action<Enemy> returnCallback)
     {
-        data = enemyData;
+        this.enemyData = enemyData;
         target = playerTarget;
         returnToPool = returnCallback;
 
-        currentHealth = data.maxHealth;
-        transform.localScale = Vector3.one * data.size;
+        currentHealth = this.enemyData.maxHealth;
+        transform.localScale = Vector3.one * this.enemyData.size;
 
-        if (spriteRenderer != null && data.sprite != null)
-            spriteRenderer.sprite = data.sprite;
+        if (spriteRenderer != null && this.enemyData.sprite != null)
+            spriteRenderer.sprite = this.enemyData.sprite;
 
-        lastAttackTime = -data.attackCooldown;
+        lastAttackTime = -this.enemyData.attackCooldown;
 
         walkTimer = Random.Range(0f, 10f);
     }
@@ -51,8 +51,8 @@ public class Enemy : MonoBehaviour
     private void OnEnable()
     {
         // Pool'dan tekrar aktif edildiğinde health resetlensin
-        if (data != null)
-            currentHealth = data.maxHealth;
+        if (enemyData != null)
+            currentHealth = enemyData.maxHealth;
 
         if (visualRoot != null)
             visualRoot.localPosition = baseLocalPosition;
@@ -60,11 +60,11 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (target == null || data == null) return;
+        if (target == null || enemyData == null) return;
 
         float distance = Vector3.Distance(transform.position, target.position);
 
-        if (distance > data.attackRange)
+        if (distance > enemyData.attackRange)
         {
             Vector3 dir = GetDirectionToPlayer();
             Walk(dir);
@@ -86,7 +86,7 @@ public class Enemy : MonoBehaviour
     private void Walk(Vector3 direction)
     {
         // İlerleme
-        transform.position += direction * data.speed * Time.deltaTime;
+        transform.position += direction * enemyData.speed * Time.deltaTime;
         transform.rotation = Quaternion.LookRotation(direction);
 
         // Yürüyüş fazı ilerlet
@@ -114,7 +114,7 @@ public class Enemy : MonoBehaviour
 
     private void TryAttack()
     {
-        if (Time.time - lastAttackTime < data.attackCooldown) return;
+        if (Time.time - lastAttackTime < enemyData.attackCooldown) return;
 
         lastAttackTime = Time.time;
         // player'a hasar verme mantığı
@@ -128,7 +128,11 @@ public class Enemy : MonoBehaviour
         UpdateHealthbar();
         if (currentHealth <= 0f)
         {
+            ScoreManager.Instance.AddScore(enemyData.scoreValue);
+            Instantiate(enemyData.deathEffectPrefab, transform.position, Quaternion.identity);
+            AudioManager.Instance.Play(enemyData.audio.death);
             Die();
+
         }
     }
 
@@ -139,13 +143,13 @@ public class Enemy : MonoBehaviour
     }
 
     // Mermiyle temas (PlayerProjectile'daki "Enemy" tag kontrolüyle uyumlu)
-    public int ScoreValue => data.scoreValue;
+    public int ScoreValue => enemyData.scoreValue;
 
     private void UpdateHealthbar()
     {
         if (healthBarImage != null)
         {
-            healthBarImage.fillAmount = currentHealth / data.maxHealth;
+            healthBarImage.fillAmount = currentHealth / enemyData.maxHealth;
         }
     }
 }

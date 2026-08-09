@@ -4,7 +4,8 @@ using System.Collections;
 public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private OnScreenJoystick aimJoystick;
-    [SerializeField] private PlayerProjectile projectilePrefab;
+    // [SerializeField] private PlayerProjectile projectilePrefab;
+    [SerializeField] private WeaponDataSO weaponData;
     [SerializeField] private GameObject muzzleEffectPrefab;
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private Transform playerBody; // rotate edilecek karakter
@@ -18,10 +19,11 @@ public class PlayerShooting : MonoBehaviour
     private Coroutine fireRoutine;
     private bool isFiring = false;
     private Animator animator;
+    
 
     private void Awake()
     {
-        projectilePool = new ObjectPool<PlayerProjectile>(projectilePrefab, prewarmCount);
+        projectilePool = new ObjectPool<PlayerProjectile>(weaponData.projectilePrefab, prewarmCount);
         animator = GetComponent<Animator>();
         muzzleEffectObj = Instantiate(muzzleEffectPrefab, shootingPoint.position, shootingPoint.rotation, shootingPoint);
         muzzleEffect = muzzleEffectObj.GetComponent<ParticleSystem>();
@@ -48,12 +50,21 @@ public class PlayerShooting : MonoBehaviour
 
     public Vector3 AimDirection => new Vector3(aimJoystick.Direction.x, 0f, aimJoystick.Direction.y);
 
+    // private void RotateTowardsAim(Vector2 dir)
+    // {
+    //     // playerBody.rotation = Quaternion.Euler(new Vector3(dir.x, 0f, dir.y));
+    //     Vector3 aimDir = new Vector3(dir.x, 0f, dir.y);
+    //     Quaternion targetRot = Quaternion.LookRotation(aimDir);
+    //     playerBody.rotation = Quaternion.RotateTowards(
+    //         playerBody.rotation, targetRot, rotateSpeed * Time.deltaTime);
+    // }
+
     private void RotateTowardsAim(Vector2 dir)
     {
         Vector3 aimDir = new Vector3(dir.x, 0f, dir.y);
-        Quaternion targetRot = Quaternion.LookRotation(aimDir);
-        playerBody.rotation = Quaternion.RotateTowards(
-            playerBody.rotation, targetRot, rotateSpeed * Time.deltaTime);
+        if (aimDir.sqrMagnitude < 0.0001f) return; // sıfır vektörde LookRotation patlar
+
+        playerBody.rotation = Quaternion.LookRotation(aimDir);
     }
 
     private void StartFiring()
@@ -79,6 +90,8 @@ public class PlayerShooting : MonoBehaviour
             SpawnProjectile();
             if(!muzzleEffect.isPlaying)
                 muzzleEffect.Play();
+            
+            AudioManager.Instance.Play(weaponData.audio.shoot);
             yield return new WaitForSeconds(fireRate);
         }
     }

@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private OnScreenJoystick moveJoystick;
+    [SerializeField] private InputActionReference moveAction;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private bool fourDirectionalMove = false;
 
@@ -21,7 +23,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Vector2 input = moveJoystick.Direction;
+        Vector2 joystickInput = moveJoystick.Direction;
+        Vector2 keyboardInput = moveAction.action.ReadValue<Vector2>();
+
+        Vector2 input = joystickInput.sqrMagnitude > 0.0001f ? joystickInput : keyboardInput;
+
 
         if (fourDirectionalMove)
             input = SnapToFourDirections(input);

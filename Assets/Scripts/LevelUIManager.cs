@@ -12,7 +12,7 @@ public class LevelUIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        UpdateScore(0);
     }
 
     // Update is called once per frame
@@ -20,7 +20,6 @@ public class LevelUIManager : MonoBehaviour
     {
         UpdateLives(levelManager.characterLives);
         UpdateHealth(levelManager.characterEnergy / 100f);
-        UpdateScore(levelManager.score);
     }
 
     public void UpdateLives(int lives)
@@ -35,6 +34,6 @@ public class LevelUIManager : MonoBehaviour
 
     public void UpdateScore(int score)
     {
-        scoreText.text = $"Score: {score}";
+        scoreText.text = $"Score: {score.ToString("D6")}";
     }
 }
