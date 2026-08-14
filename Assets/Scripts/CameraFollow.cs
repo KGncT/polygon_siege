@@ -10,13 +10,14 @@ public class CameraFollow : MonoBehaviour
 
     [Header("Yükseklik ve Ofset")]
     [SerializeField] private float height = 15f;
-    [SerializeField] private Vector2 planarOffset = Vector2.zero; // x/z ekseninde kaydırma gerekirse
+    [SerializeField] private float visionIncline = 45f;
+    [SerializeField] private Vector2 planarOffset; // x/z ekseninde kaydırma gerekirse
 
     [Header("Smoothing")]
     [SerializeField] private float smoothTime = 0.2f;
 
     [Header("Zoom")]
-    [SerializeField] private float zoomOutStepAmount = 2f;
+    [SerializeField] private float zoomOutStepAmount;
     [SerializeField] private float zoomDuration = 1f;
 
     private Coroutine zoomRoutine;
@@ -35,7 +36,7 @@ public class CameraFollow : MonoBehaviour
         }
 
         // Tam tepeden, sabit kuşbakışı açı
-        transform.eulerAngles = new Vector3(65f, 0f, 0f);
+        transform.eulerAngles = new Vector3(visionIncline, 0f, 0f);
     }
 
     private void LateUpdate()
@@ -62,7 +63,7 @@ public class CameraFollow : MonoBehaviour
 
     public void ZoomOutStep()
     {
-        float targetPlanarOffsetX = planarOffset.x - 1f; // x ekseninde kaydırma gerekirse
+        float targetPlanarOffsetX = planarOffset.x; // x ekseninde kaydırma gerekirse
         float targetHeight = height + zoomOutStepAmount;
         float targetPlanarOffsetY = planarOffset.y - 1.5f;
 

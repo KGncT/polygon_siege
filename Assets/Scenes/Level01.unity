@@ -1447,6 +1447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73014892efe6d65a3937d0a755359a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  health: 100
 --- !u!114 &889361098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2459,10 +2460,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   target: {fileID: 889361099}
-  height: 10
-  planarOffset: {x: 0, y: -2}
+  height: 15
+  visionIncline: 45
+  planarOffset: {x: 0, y: -12}
   smoothTime: 0.2
-  zoomOutStepAmount: 2
+  zoomOutStepAmount: 1.5
   zoomDuration: 1
 --- !u!1 &1594801983 stripped
 GameObject:

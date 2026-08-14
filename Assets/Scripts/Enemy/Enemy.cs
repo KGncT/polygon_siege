@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour
     private float walkTimer;    
 
     private SpriteRenderer spriteRenderer; // 2.5D / billboard sprite kullanıyorsan
+    private Animator animator;
+    private bool isWalking => Vector3.Distance(transform.position, target.position) > enemyData.attackRange;
 
     private void Awake()
     {
@@ -28,6 +30,8 @@ public class Enemy : MonoBehaviour
             visualRoot = transform;
 
         baseLocalPosition = visualRoot.localPosition;
+
+        animator = GetComponent<Animator>();
     }
 
     // EnemySpawner tarafından spawn edilirken çağrılır
@@ -52,20 +56,27 @@ public class Enemy : MonoBehaviour
     {
         // Pool'dan tekrar aktif edildiğinde health resetlensin
         if (enemyData != null)
+        {
             currentHealth = enemyData.maxHealth;
+            // AudioManager.Instance.Play(enemyData.audio.roar);        
+        }
 
         if (visualRoot != null)
             visualRoot.localPosition = baseLocalPosition;
+
     }
 
     private void Update()
     {
+        Debug.Log(isWalking);
+        animator.SetBool("isWalking", isWalking);
+        
         if (target == null || enemyData == null) return;
 
         float distance = Vector3.Distance(transform.position, target.position);
 
         if (distance > enemyData.attackRange)
-        {
+        {            
             Vector3 dir = GetDirectionToPlayer();
             Walk(dir);
         }
@@ -117,8 +128,10 @@ public class Enemy : MonoBehaviour
         if (Time.time - lastAttackTime < enemyData.attackCooldown) return;
 
         lastAttackTime = Time.time;
-        // player'a hasar verme mantığı
-        // target.GetComponent<PlayerHealth>()?.TakeDamage(data.damage);
+        
+        animator.SetTrigger("bite");
+        AudioManager.Instance.Play(enemyData.audio.bite);
+        target.GetComponent<Player>()?.TakeDamage((int)enemyData.damage);
     }
 
     public void TakeDamage(float amount)

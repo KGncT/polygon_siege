@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 585879296818866099}
   - component: {fileID: 1972735929850238790}
   - component: {fileID: 5729076741143993892}
+  - component: {fileID: 3739847400728928257}
   m_Layer: 0
   m_Name: GreenMonster
   m_TagString: Enemy
@@ -211,8 +212,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6135249078861894727}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.01057, y: 1.9000001, z: -0.42962}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -337,12 +338,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b17fe70512da7228796818df77303f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  data: {fileID: 11400000, guid: 8f118e324ea64b4caa019ee543491f95, type: 2}
+  enemyData: {fileID: 11400000, guid: 8f118e324ea64b4caa019ee543491f95, type: 2}
   hopHeight: 0.15
   hopFrequency: 6
   tiltAngle: 15
   visualRoot: {fileID: 2399241213749558465}
   healthBarImage: {fileID: 4485902837686762236}
+--- !u!95 &3739847400728928257
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6135249078861894727}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3e2c58f287e45a0309590f5530025bf6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6332641351406754253
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,7 +385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8304304849708929939
 RectTransform:
   m_ObjectHideFlags: 0

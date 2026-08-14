@@ -3,6 +3,8 @@ using UnityEngine;
 [System.Serializable]
 public class EnemyAudioSet
 {
+    public SoundDataSO roar;
+    public SoundDataSO bite;
     public SoundDataSO death;
 }
 

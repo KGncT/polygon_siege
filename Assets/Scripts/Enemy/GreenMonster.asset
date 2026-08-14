@@ -18,9 +18,11 @@ MonoBehaviour:
   speed: 1
   maxHealth: 100
   scoreValue: 10
-  size: 0.23
+  size: 0.15
   attackRange: 1.2
   attackCooldown: 1
   deathEffectPrefab: {fileID: 5103765908408753771, guid: 1a9cdc6f14be8c98db2a86189130f74b, type: 3}
   audio:
+    roar: {fileID: 11400000, guid: e0727940796da6857bc903602ca83a19, type: 2}
+    bite: {fileID: 11400000, guid: 2e2612a53dd584e34823ce3a9c2caa24, type: 2}
     death: {fileID: 11400000, guid: e7ff89ed4a9b0804b8af1b9bfb194fc8, type: 2}
