@@ -91,8 +91,11 @@ public class PlayerShooting : MonoBehaviour
             if(!muzzleEffect.isPlaying)
                 muzzleEffect.Play();
             
-            AudioManager.Instance.Play(weaponData.audio.shoot);
-            yield return new WaitForSeconds(fireRate);
+            int rnd = Random.Range(0, weaponData.audio.shoot.Length);
+            AudioManager.Instance.Play(weaponData.audio.shoot[rnd]);
+
+            float rndFireRate = Random.Range(fireRate, fireRate * 1.15f);
+            yield return new WaitForSeconds(rndFireRate);
         }
     }
 

@@ -15,13 +15,6 @@ public class LevelUIManager : MonoBehaviour
         UpdateScore(0);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateLives(levelManager.characterLives);
-        UpdateHealth(levelManager.characterEnergy / 100f);
-    }
-
     public void UpdateLives(int lives)
     {
         livesText.text = $"x {lives}";

@@ -15,6 +15,10 @@ MonoBehaviour:
   fireRate: 0
   projectilePrefab: {fileID: 4347755235485839549, guid: c70ae965149ddc46192a39c063ddf3cc, type: 3}
   audio:
-    shoot: {fileID: 11400000, guid: f4c7b6c0e6d595f53b22381ab0fe288d, type: 2}
+    shoot:
+    - {fileID: 11400000, guid: f4c7b6c0e6d595f53b22381ab0fe288d, type: 2}
+    - {fileID: 11400000, guid: 7f59f84beac4079caa7db6dc3fef518d, type: 2}
+    - {fileID: 11400000, guid: fe94c93130b1d43789efe32579c0d554, type: 2}
+    - {fileID: 11400000, guid: 98df4cff538819028aa9485d62b198f8, type: 2}
     reload: {fileID: 11400000, guid: 261b88011fc5c2e3f9d239c14990c0da, type: 2}
     empty: {fileID: 11400000, guid: 4595509c98bf0fb88b44e394036b5ea7, type: 2}

@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class WeaponAudioSet
 {
-    public SoundDataSO shoot;
+    public SoundDataSO[] shoot;
     public SoundDataSO reload;
     public SoundDataSO empty;
 }

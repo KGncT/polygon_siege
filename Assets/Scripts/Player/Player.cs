@@ -3,6 +3,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [HideInInspector] public int health = 100;
+    [SerializeField] private LevelManager levelManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,9 +20,11 @@ public class Player : MonoBehaviour
     public void TakeDamage(int amount)
     {
         health -= amount;
+        levelManager.DecreaseEnergy(amount);
         if (health <= 0)
         {
             Die();
+            levelManager.DecreaseLives(1);
         }
     }
 
