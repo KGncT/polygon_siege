@@ -64,13 +64,13 @@ public class LevelManager : MonoBehaviour, ILevelEnemyProvider
     public void IncreaseEnergy(float amount)
     {
         characterEnergy += amount;
-        uiManager.UpdateHealth(characterEnergy / 100f);
+        uiManager.IncreaseHealthbar(characterEnergy / 100f);
     }
 
     public void DecreaseEnergy(float amount)
     {
         characterEnergy = Mathf.Max(0f, characterEnergy - amount);
-        uiManager.UpdateHealth(characterEnergy / 100f);
+        uiManager.DecreaseHealthbar(characterEnergy / 100f);
     }
 
     // ILevelEnemyProvider implementasyonu

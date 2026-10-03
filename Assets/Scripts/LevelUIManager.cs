@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using TMPro;
 
 public class LevelUIManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text livesText;
-    [SerializeField] private Image healthbarFill;
+    [SerializeField] private Image healthbar_yellow;
+    [SerializeField] private Image healthbar_green;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private Player player;
     [SerializeField] private LevelManager levelManager;
+    private float currentHealth;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,13 +23,45 @@ public class LevelUIManager : MonoBehaviour
         livesText.text = $"x {lives}";
     }
 
-    public void UpdateHealth(float healthNormalized)
+    public void IncreaseHealthbar(float healthNormalized)
     {
-        healthbarFill.fillAmount = healthNormalized;
+        currentHealth = healthNormalized;
+
+        StartCoroutine(HealthbarIncreaseAction(healthNormalized));
+    }
+
+    public void DecreaseHealthbar(float healthNormalized)
+    {
+        currentHealth = healthNormalized;
+
+        StartCoroutine(HealthbarDecreaseAction(healthNormalized));
     }
 
     public void UpdateScore(int score)
     {
         scoreText.text = $"Score: {score.ToString("D6")}";
     }
+
+
+    private IEnumerator HealthbarDecreaseAction(float healthNormalized)
+    {
+        healthbar_yellow.fillAmount = healthNormalized;
+        while(healthbar_green.fillAmount > healthbar_yellow.fillAmount)
+        {
+            healthbar_green.fillAmount = Mathf.Lerp(healthbar_green.fillAmount,healthbar_yellow.fillAmount, 0.3f);
+            yield return null;
+        }
+    }
+    
+    private IEnumerator HealthbarIncreaseAction(float healthNormalized)
+    {
+        healthbar_yellow.fillAmount = healthNormalized;
+        while(healthbar_green.fillAmount < healthbar_yellow.fillAmount)
+        {
+            healthbar_green.fillAmount = Mathf.Lerp(healthbar_green.fillAmount,healthbar_yellow.fillAmount, 0.3f);
+            yield return null;
+        }
+    }
+    
+
 }
