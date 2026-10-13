@@ -94,7 +94,8 @@ public class PlayerShooting : MonoBehaviour
             int rnd = Random.Range(0, weaponData.audio.shoot.Length);
             AudioManager.Instance.Play(weaponData.audio.shoot[rnd]);
 
-            float rndFireRate = Random.Range(fireRate, fireRate * 1.15f);
+            float rndFireRate = Random.Range(fireRate, fireRate * 1.5f);
+            // float rndFireRate = Random.Range(fireRate, fireRate * 1.15f);
             yield return new WaitForSeconds(rndFireRate);
         }
     }

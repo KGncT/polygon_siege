@@ -12,9 +12,9 @@ public class GroundConstructor : MonoBehaviour
 
     private void ConstructGround()
     {
-        for(int i = -2; i < 3; i++)
+        for(int i = -4; i < 5; i++)
         {
-            for(int j = -2; j < 3; j++)
+            for(int j = -4; j < 5; j++)
             {
                 GameObject tile = Instantiate(groundPrefab, new Vector3(i*10f, 0f, j*10f), Quaternion.identity);
                 tile.name = $"Tile_{i}_{j}";
