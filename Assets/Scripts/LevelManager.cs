@@ -22,11 +22,13 @@ public class LevelManager : MonoBehaviour, ILevelEnemyProvider
     [Header("Player Stats")]
     public int characterLives = 3;
     public float characterEnergy = 100f;
+    public float maxEnergy = 100f;
 
     [Header("Wave / Enemy Ayarları")]
     [SerializeField] private List<WaveConfig> waves;
     [SerializeField] private int currentWaveIndex = 0;
     private bool isGameOver;
+    public bool IsGameOver => isGameOver;
     private LevelUIManager uiManager;
     [SerializeField] private GameObject panel;
 
@@ -63,14 +65,22 @@ public class LevelManager : MonoBehaviour, ILevelEnemyProvider
 
     public void IncreaseEnergy(float amount)
     {
+        characterEnergy = Mathf.Min(maxEnergy, characterEnergy + amount);
+        uiManager.IncreaseHealthbar(characterEnergy / maxEnergy);
+    }
+
+    // Upgrade kartı: max can artar, artış kadar da mevcut can eklenir
+    public void IncreaseMaxEnergy(float amount)
+    {
+        maxEnergy += amount;
         characterEnergy += amount;
-        uiManager.IncreaseHealthbar(characterEnergy / 100f);
+        uiManager.IncreaseHealthbar(characterEnergy / maxEnergy);
     }
 
     public void DecreaseEnergy(float amount)
     {
         characterEnergy = Mathf.Max(0f, characterEnergy - amount);
-        uiManager.DecreaseHealthbar(characterEnergy / 100f);
+        uiManager.DecreaseHealthbar(characterEnergy / maxEnergy);
     }
 
     // ILevelEnemyProvider implementasyonu

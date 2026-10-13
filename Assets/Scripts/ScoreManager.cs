@@ -23,7 +23,7 @@ public class ScoreManager : MonoBehaviour
         }
         Instance = this;
 
-        levelUIManager = FindObjectOfType<LevelUIManager>();
+        levelUIManager = FindAnyObjectByType<LevelUIManager>();
 
     }
 
@@ -32,6 +32,10 @@ public class ScoreManager : MonoBehaviour
         currentScore += amount;
         levelUIManager.UpdateScore(currentScore);
         CheckZoomThreshold();
+
+        // Öldürülen düşmanın puanı kadar XP kazandır
+        if (UpgradeManager.Instance != null)
+            UpgradeManager.Instance.AddXP(amount);
     }
 
     private void CheckZoomThreshold()

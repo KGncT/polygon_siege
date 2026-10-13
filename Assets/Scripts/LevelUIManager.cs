@@ -9,6 +9,8 @@ public class LevelUIManager : MonoBehaviour
     [SerializeField] private Image healthbar_yellow;
     [SerializeField] private Image healthbar_green;
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private Image xpBarFill;   // opsiyonel: Image Type = Filled
+    [SerializeField] private TMP_Text levelText; // opsiyonel
     [SerializeField] private Player player;
     [SerializeField] private LevelManager levelManager;
     private float currentHealth;
@@ -35,6 +37,12 @@ public class LevelUIManager : MonoBehaviour
         currentHealth = healthNormalized;
 
         StartCoroutine(HealthbarDecreaseAction(healthNormalized));
+    }
+
+    public void UpdateXP(float normalized, int level)
+    {
+        if (xpBarFill != null) xpBarFill.fillAmount = normalized;
+        if (levelText != null) levelText.text = $"Lv {level}";
     }
 
     public void UpdateScore(int score)

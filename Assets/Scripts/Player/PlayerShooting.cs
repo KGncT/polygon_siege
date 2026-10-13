@@ -10,7 +10,6 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private Transform playerBody; // rotate edilecek karakter
     [SerializeField] private float fireRate = 0.15f;
-    [SerializeField] private float rotateSpeed = 720f;
     [SerializeField] private int prewarmCount = 20;
     [SerializeField] private float spreadStep = 8f; // angles between multiple projectiles;
 
@@ -115,7 +114,7 @@ public class PlayerShooting : MonoBehaviour
         int count = 1 + (stats != null ? stats.ExtraProjectiles : 0);
         float damageMult = stats!= null ? stats.DamageMultiplier : 1f;
         float speedMult = stats!= null ? stats.ProjectileSpeedMultiplier : 1f;
-        float rangeMult = stats!= null ? stats.ProjectileRangeMultiplier : 1f;
+        float rangeMult = stats!= null ? stats.RangeMultiplier : 1f;
         int pierce = stats!= null ? stats.ExtraPierce : 0;
 
         for(int i=0; i < count; i++)
