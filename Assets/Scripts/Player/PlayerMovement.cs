@@ -13,12 +13,18 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Animator animator;
     private PlayerShooting playerShooting;
+    private PlayerStats stats;
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>(); // opsiyonel, null olabilir
         // animator = GetComponent<Animator>();
         playerShooting = GetComponent<PlayerShooting>();
+    }
+
+    private void Start()
+    {
+        stats = GetComponent<PlayerStats>();
     }
 
     private void Update()
@@ -36,7 +42,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (currentMoveDir.sqrMagnitude > 0.0001f)
         {
-            Vector3 motion = currentMoveDir * moveSpeed * Time.deltaTime;
+            float speedMultiplier = stats != null ? stats.MoveSpeedMultiplier : 1f;
+            Vector3 motion = currentMoveDir * moveSpeed * speedMultiplier * Time.deltaTime;
 
             if (controller != null)
                 controller.Move(motion);

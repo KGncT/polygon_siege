@@ -12,6 +12,8 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float fireRate = 0.15f;
     [SerializeField] private float rotateSpeed = 720f;
     [SerializeField] private int prewarmCount = 20;
+    [SerializeField] private float spreadStep = 8f; // angles between multiple projectiles;
+
 
     private ParticleSystem muzzleEffect;
     private GameObject muzzleEffectObj;
@@ -19,6 +21,7 @@ public class PlayerShooting : MonoBehaviour
     private Coroutine fireRoutine;
     private bool isFiring = false;
     private Animator animator;
+    private PlayerStats stats;
     
 
     private void Awake()
@@ -27,6 +30,11 @@ public class PlayerShooting : MonoBehaviour
         animator = GetComponent<Animator>();
         muzzleEffectObj = Instantiate(muzzleEffectPrefab, shootingPoint.position, shootingPoint.rotation, shootingPoint);
         muzzleEffect = muzzleEffectObj.GetComponent<ParticleSystem>();
+    }
+
+    private void Start()
+    {
+        stats = GetComponent<PlayerStats>();
     }
 
     private void Update()
@@ -62,7 +70,8 @@ public class PlayerShooting : MonoBehaviour
     private void RotateTowardsAim(Vector2 dir)
     {
         Vector3 aimDir = new Vector3(dir.x, 0f, dir.y);
-        if (aimDir.sqrMagnitude < 0.0001f) return; // sıfır vektörde LookRotation patlar
+        if (aimDir.sqrMagnitude < 0.0001f) 
+            return; 
 
         playerBody.rotation = Quaternion.LookRotation(aimDir);
     }
@@ -94,16 +103,31 @@ public class PlayerShooting : MonoBehaviour
             int rnd = Random.Range(0, weaponData.audio.shoot.Length);
             AudioManager.Instance.Play(weaponData.audio.shoot[rnd]);
 
-            float rndFireRate = Random.Range(fireRate, fireRate * 1.5f);
-            // float rndFireRate = Random.Range(fireRate, fireRate * 1.15f);
+            float rateMultiplier = stats != null ? stats.FireRateMultiplier : 1f;
+            float rndFireRate = Random.Range(fireRate, fireRate * 1.15f) / rateMultiplier;
+            // float rndFireRate = Random.Range(fireRate, fireRate * 1.15f) ;
             yield return new WaitForSeconds(rndFireRate);
         }
     }
 
     private void SpawnProjectile()
     {
-        PlayerProjectile proj = projectilePool.Get(shootingPoint.position, shootingPoint.rotation);
-        proj.Init(ReturnProjectile);
+        int count = 1 + (stats != null ? stats.ExtraProjectiles : 0);
+        float damageMult = stats!= null ? stats.DamageMultiplier : 1f;
+        float speedMult = stats!= null ? stats.ProjectileSpeedMultiplier : 1f;
+        float rangeMult = stats!= null ? stats.ProjectileRangeMultiplier : 1f;
+        int pierce = stats!= null ? stats.ExtraPierce : 0;
+
+        for(int i=0; i < count; i++)
+        {
+            float angle = (i- (count - 1) * 0.5f) * spreadStep;
+            Quaternion rot = shootingPoint.rotation * Quaternion.Euler(0, angle, 0);
+
+            PlayerProjectile proj = projectilePool.Get(shootingPoint.position, rot);
+            proj.Init(ReturnProjectile, damageMult, speedMult, rangeMult, pierce);
+
+        }
+
     }
 
     private void ReturnProjectile(PlayerProjectile proj)
