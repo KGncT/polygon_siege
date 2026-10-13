@@ -93,7 +93,6 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        Debug.Log(currentHealth);
         currentHealth -= amount;
         UpdateHealthbar();
         if (currentHealth <= 0f)
