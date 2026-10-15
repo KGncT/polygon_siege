@@ -8,6 +8,8 @@ public class LevelUIManager : MonoBehaviour
     [SerializeField] private TMP_Text livesText;
     [SerializeField] private Image healthbar_yellow;
     [SerializeField] private Image healthbar_green;
+    [SerializeField] private Image hearthIconPrefab;
+    [SerializeField] private RectTransform hearthIconParent;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private Image xpBarFill;   // opsiyonel: Image Type = Filled
     [SerializeField] private TMP_Text levelText; // opsiyonel
@@ -18,11 +20,15 @@ public class LevelUIManager : MonoBehaviour
     void Start()
     {
         UpdateScore(0);
+        UpdateLives(levelManager.characterLives);
     }
 
     public void UpdateLives(int lives)
     {
-        livesText.text = $"x {lives}";
+        for(int i=0; i<lives; i++)
+        {
+            Instantiate(hearthIconPrefab, hearthIconParent);
+        }
     }
 
     public void IncreaseHealthbar(float healthNormalized)
@@ -69,6 +75,14 @@ public class LevelUIManager : MonoBehaviour
             healthbar_green.fillAmount = Mathf.Lerp(healthbar_green.fillAmount,healthbar_yellow.fillAmount, 0.3f);
             yield return null;
         }
+    }
+
+    public void ResetUIElements()
+    {
+        UpdateLives(levelManager.characterLives);
+        // UpdateXP(0f, 1);
+        IncreaseHealthbar(player.health / (float)player.MaxHealth);
+
     }
     
 

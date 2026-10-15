@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5971a4ef3e03611a59a006fd79212c1c, type: 3}
   m_Name: Card_Damage
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCardSO
-  title: "Damage Up"
-  description: "Damage +{0}%"
-  icon: {fileID: 0}
+  title: Damage Up
+  description: Damage +{0}%
+  icon: {fileID: 21300000, guid: 1e2f4e99f4050f382bb2c768eccabedf, type: 3}
   rarity: 0
   type: 0
   value: 15
-  dropWeight: 1.0
+  dropWeight: 1
   maxStacks: 6

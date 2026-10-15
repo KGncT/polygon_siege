@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5971a4ef3e03611a59a006fd79212c1c, type: 3}
   m_Name: Card_MoveSpeed
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCardSO
-  title: "Swift Boots"
-  description: "Move speed +{0}%"
-  icon: {fileID: 0}
+  title: Swift Boots
+  description: Move speed +{0}%
+  icon: {fileID: 21300000, guid: 0ba60084032722c898d41161ac03823d, type: 3}
   rarity: 0
   type: 2
   value: 10

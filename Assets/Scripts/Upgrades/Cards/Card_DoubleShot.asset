@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5971a4ef3e03611a59a006fd79212c1c, type: 3}
   m_Name: Card_DoubleShot
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCardSO
-  title: "Multi Shot"
-  description: "+{0} projectile per shot"
-  icon: {fileID: 0}
+  title: Multi Shot
+  description: +{0} projectile per shot
+  icon: {fileID: 21300000, guid: ad595005f992380729952414eb673c04, type: 3}
   rarity: 2
   type: 7
   value: 1

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5971a4ef3e03611a59a006fd79212c1c, type: 3}
   m_Name: Card_ProjectileSpeed
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCardSO
-  title: "Fast Bullets"
-  description: "Bullet speed +{0}%"
-  icon: {fileID: 0}
+  title: Fast Bullets
+  description: Bullet speed +{0}%
+  icon: {fileID: 21300000, guid: 930941c35f982b55892c9660d22344d5, type: 3}
   rarity: 0
   type: 3
   value: 20

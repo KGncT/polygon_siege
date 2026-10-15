@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5971a4ef3e03611a59a006fd79212c1c, type: 3}
   m_Name: Card_FireRate
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCardSO
-  title: "Rapid Fire"
-  description: "Fire rate +{0}%"
-  icon: {fileID: 0}
+  title: Rapid Fire
+  description: Fire rate +{0}%
+  icon: {fileID: 21300000, guid: f503a0aef9f2624cbac31d398a56e352, type: 3}
   rarity: 0
   type: 1
   value: 15
-  dropWeight: 1.0
+  dropWeight: 1
   maxStacks: 6

@@ -30,7 +30,8 @@ public class LevelManager : MonoBehaviour, ILevelEnemyProvider
     private bool isGameOver;
     public bool IsGameOver => isGameOver;
     private LevelUIManager uiManager;
-    [SerializeField] private GameObject panel;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject pausePanel;
 
     [System.Serializable]
     public class WaveConfig
@@ -42,7 +43,7 @@ public class LevelManager : MonoBehaviour, ILevelEnemyProvider
     void Start()
     {
         uiManager = GetComponent<LevelUIManager>();
-        panel.SetActive(false);
+        gameOverPanel.SetActive(false);
         Time.timeScale = 1;
     }
 
@@ -107,7 +108,7 @@ public class LevelManager : MonoBehaviour, ILevelEnemyProvider
     public void OnGameOver()
     {
         Time.timeScale = 0;
-        panel.SetActive(true);
+        gameOverPanel.SetActive(true);
     }
 
     public void RestartLevel()
@@ -118,5 +119,17 @@ public class LevelManager : MonoBehaviour, ILevelEnemyProvider
     public void GoToMainMenu()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        pausePanel.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        pausePanel.SetActive(false);
     }
 }

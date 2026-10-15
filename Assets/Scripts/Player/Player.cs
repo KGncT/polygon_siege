@@ -4,6 +4,9 @@ public class Player : MonoBehaviour
 {
     [HideInInspector] public int health = 100;
     [SerializeField] private LevelManager levelManager;
+    [SerializeField] private LevelUIManager levelUIManager;
+    [SerializeField] private GameObject model;
+    [SerializeField] private GameObject deathEffectPrefab;
 
     public int MaxHealth { get; private set;} = 100;
 
@@ -14,8 +17,17 @@ public class Player : MonoBehaviour
         levelManager.DecreaseEnergy(amount);
         if (health <= 0)
         {
-            Die();
-            levelManager.DecreaseLives(1);
+            if(levelManager.characterLives > 0)
+            {
+                levelManager.DecreaseLives(1);
+                health = MaxHealth;
+                levelUIManager.ResetUIElements();
+                Die();
+            }
+            else
+            {
+                levelManager.OnGameOver();
+            }
         }
     }
 
@@ -40,6 +52,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Player has died!");
+        Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+        transform.position += Vector3.up * 20f;
     }
 }
