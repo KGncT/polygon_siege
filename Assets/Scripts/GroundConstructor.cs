@@ -3,15 +3,13 @@ using UnityEngine;
 public class GroundConstructor : MonoBehaviour
 {
     [SerializeField] private GameObject groundPrefab;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        transform.position = Vector3.zero;
-        ConstructGround();
-    }
+    [SerializeField] private Material[] groundMaterials;
 
-    private void ConstructGround()
+    public void ConstructGround()
     {
+        int rndMaterialIndex = Random.Range(0, groundMaterials.Length);
+        groundPrefab.GetComponent<MeshRenderer>().material = groundMaterials[rndMaterialIndex];
+
         for(int i = -4; i < 5; i++)
         {
             for(int j = -4; j < 5; j++)

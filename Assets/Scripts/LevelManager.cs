@@ -32,6 +32,7 @@ public class LevelManager : MonoBehaviour, ILevelEnemyProvider
     private LevelUIManager uiManager;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GroundConstructor groundConstructor;
 
     [System.Serializable]
     public class WaveConfig
@@ -42,9 +43,14 @@ public class LevelManager : MonoBehaviour, ILevelEnemyProvider
 
     void Start()
     {
+        groundConstructor.ConstructGround();
+
         uiManager = GetComponent<LevelUIManager>();
         gameOverPanel.SetActive(false);
         Time.timeScale = 1;
+
+        uiManager.UpdateLives(characterLives);
+        uiManager.UpdateScore(0);
     }
 
     public void IncreaseLives(int amount = 1)
@@ -87,8 +93,9 @@ public class LevelManager : MonoBehaviour, ILevelEnemyProvider
     // ILevelEnemyProvider implementasyonu
     public List<EnemySpawnWeight> GetCurrentWaveEnemies()
     {
+        Debug.Log("in GetCurrentWaveEnemies");
         if (waves == null || waves.Count == 0) return null;
-
+        Debug.Log("condition passed");
         int index = Mathf.Clamp(currentWaveIndex, 0, waves.Count - 1);
         return waves[index].enemies;
     }

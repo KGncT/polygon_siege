@@ -107,6 +107,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         // ScoreManager.Instance?.AddScore(data.scoreValue);
+        
         returnToPool?.Invoke(this);
     }
 

@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
             {
                 levelManager.DecreaseLives(1);
                 health = MaxHealth;
-                levelUIManager.ResetUIElements();
+                levelUIManager.ResetUIElements(levelManager.characterLives, health / (float)MaxHealth);
                 Die();
             }
             else

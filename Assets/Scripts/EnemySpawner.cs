@@ -60,6 +60,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
+        Debug.Log("Spawning enemy...");
         List<EnemySpawnWeight> currentWave = levelManager.GetCurrentWaveEnemies();
         if (currentWave == null || currentWave.Count == 0) return;
 

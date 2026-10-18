@@ -5,50 +5,29 @@ using TMPro;
 
 public class LevelUIManager : MonoBehaviour
 {
-    [SerializeField] private TMP_Text livesText;
-    [SerializeField] private Image healthbar_yellow;
-    [SerializeField] private Image healthbar_green;
-    [SerializeField] private Image hearthIconPrefab;
-    [SerializeField] private RectTransform hearthIconParent;
+    [SerializeField] private HealthbarActions healthbarActions;
+    [SerializeField] private HeartsActions heartsActions;
+    [SerializeField] private TwoSidedLevelBar xpBar;   
     [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private Image xpBarFill;   // opsiyonel: Image Type = Filled
-    [SerializeField] private TMP_Text levelText; // opsiyonel
-    [SerializeField] private Player player;
-    [SerializeField] private LevelManager levelManager;
-    private float currentHealth;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        UpdateScore(0);
-        UpdateLives(levelManager.characterLives);
-    }
 
     public void UpdateLives(int lives)
     {
-        for(int i=0; i<lives; i++)
-        {
-            Instantiate(hearthIconPrefab, hearthIconParent);
-        }
+        heartsActions.UpdateHearts(lives);
     }
 
     public void IncreaseHealthbar(float healthNormalized)
     {
-        currentHealth = healthNormalized;
-
-        StartCoroutine(HealthbarIncreaseAction(healthNormalized));
+        healthbarActions.IncreaseHealthbar(healthNormalized);
     }
 
     public void DecreaseHealthbar(float healthNormalized)
     {
-        currentHealth = healthNormalized;
-
-        StartCoroutine(HealthbarDecreaseAction(healthNormalized));
+        healthbarActions.DecreaseHealthbar(healthNormalized);
     }
 
     public void UpdateXP(float normalized, int level)
-    {
-        if (xpBarFill != null) xpBarFill.fillAmount = normalized;
-        if (levelText != null) levelText.text = $"Lv {level}";
+    {            
+        xpBar.UpdateLevelBar(normalized, level);
     }
 
     public void UpdateScore(int score)
@@ -56,32 +35,10 @@ public class LevelUIManager : MonoBehaviour
         scoreText.text = $"Score: {score.ToString("D6")}";
     }
 
-
-    private IEnumerator HealthbarDecreaseAction(float healthNormalized)
+    public void ResetUIElements(int lives, float healthNormalized)
     {
-        healthbar_yellow.fillAmount = healthNormalized;
-        while(healthbar_green.fillAmount > healthbar_yellow.fillAmount)
-        {
-            healthbar_green.fillAmount = Mathf.Lerp(healthbar_green.fillAmount,healthbar_yellow.fillAmount, 0.3f);
-            yield return null;
-        }
-    }
-    
-    private IEnumerator HealthbarIncreaseAction(float healthNormalized)
-    {
-        healthbar_yellow.fillAmount = healthNormalized;
-        while(healthbar_green.fillAmount < healthbar_yellow.fillAmount)
-        {
-            healthbar_green.fillAmount = Mathf.Lerp(healthbar_green.fillAmount,healthbar_yellow.fillAmount, 0.3f);
-            yield return null;
-        }
-    }
-
-    public void ResetUIElements()
-    {
-        UpdateLives(levelManager.characterLives);
-        // UpdateXP(0f, 1);
-        IncreaseHealthbar(player.health / (float)player.MaxHealth);
+        UpdateLives(lives);
+        IncreaseHealthbar(healthNormalized);
 
     }
     
