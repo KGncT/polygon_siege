@@ -14,6 +14,7 @@ public class EnemyDataSO : ScriptableObject
     [Header("Identity")]
     public string enemyName = "Enemy";
     public Sprite sprite;
+    public Material material;
 
     [Header("Stats")]
     public float damage = 10f;

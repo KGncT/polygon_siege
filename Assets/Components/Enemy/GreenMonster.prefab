@@ -249,6 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   enemyData: {fileID: 11400000, guid: 8f118e324ea64b4caa019ee543491f95, type: 2}
   healthBarImage: {fileID: 4485902837686762236}
+  model: {fileID: 6222212854659899132}
   animator: {fileID: 1695772707162471106}
 --- !u!1 &6222212854659899132
 GameObject:
@@ -317,7 +318,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5039292579533247603, guid: 9aa694b3a34599d93aae55a9bd46444e, type: 3}
+  - {fileID: 2100000, guid: 51c56250d83b8f843a832c184df8bdb0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

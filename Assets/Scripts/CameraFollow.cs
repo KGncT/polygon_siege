@@ -10,7 +10,8 @@ public class CameraFollow : MonoBehaviour
 
     [Header("Yükseklik ve Ofset")]
     [SerializeField] private float height = 15f;
-    [SerializeField] private float visionIncline = 45f;
+    [SerializeField] private Vector3 visionIncline;
+    // [SerializeField] private float visionIncline = 45f;
     [SerializeField] private Vector2 planarOffset; // x/z ekseninde kaydırma gerekirse
 
     [Header("Smoothing")]
@@ -32,11 +33,10 @@ public class CameraFollow : MonoBehaviour
     {
         if (target != null)
         {
-            transform.position = GetDesiredPosition();
+            transform.localPosition = GetDesiredPosition();
         }
 
-        // Tam tepeden, sabit kuşbakışı açı
-        transform.eulerAngles = new Vector3(visionIncline, 0f, 0f);
+        transform.eulerAngles = visionIncline;
     }
 
     private void LateUpdate()
@@ -44,8 +44,11 @@ public class CameraFollow : MonoBehaviour
         if (target == null) return;
 
         Vector3 desiredPosition = GetDesiredPosition();
-        transform.position = Vector3.SmoothDamp(
-            transform.position, desiredPosition, ref currentVelocity, smoothTime);
+        transform.localPosition = Vector3.SmoothDamp(
+            transform.localPosition, desiredPosition, ref currentVelocity, smoothTime);
+
+        transform.LookAt(target.position);
+        // transform.LookAt(target.position + Vector3.up * 1.5f); // Player'ın üstüne bakacak şekilde
     }
 
     private Vector3 GetDesiredPosition()
@@ -65,7 +68,7 @@ public class CameraFollow : MonoBehaviour
     {
         float targetPlanarOffsetX = planarOffset.x; // x ekseninde kaydırma gerekirse
         float targetHeight = height + zoomOutStepAmount;
-        float targetPlanarOffsetY = planarOffset.y - 1.5f;
+        float targetPlanarOffsetY = planarOffset.y + 1.5f;
 
         if (zoomRoutine != null)
             StopCoroutine(zoomRoutine);

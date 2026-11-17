@@ -12,14 +12,9 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private Image healthBarImage;
 
-    private SpriteRenderer spriteRenderer; // 2.5D / billboard sprite kullanıyorsan
+    [SerializeField] private GameObject model; 
     [SerializeField] private Animator animator;
     private bool isWalking => Vector3.Distance(transform.position, target.position) > enemyData.attackRange;
-
-    private void Awake()
-    {
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-    }
 
     // EnemySpawner tarafından spawn edilirken çağrılır
     public void Init(EnemyDataSO enemyData, Transform playerTarget, System.Action<Enemy> returnCallback)
@@ -31,8 +26,7 @@ public class Enemy : MonoBehaviour
         currentHealth = this.enemyData.maxHealth;
         transform.localScale = Vector3.one * this.enemyData.size;
 
-        if (spriteRenderer != null && this.enemyData.sprite != null)
-            spriteRenderer.sprite = this.enemyData.sprite;
+        model.GetComponent<MeshRenderer>().material = this.enemyData.material;
 
         lastAttackTime = -this.enemyData.attackCooldown;
     }

@@ -8,7 +8,7 @@ public class WeaponAudioSet
     public SoundDataSO empty;
 }
 
-[CreateAssetMenu(fileName = "WeaponData", menuName = "ScriptableObjects/WeaponDataSO")]
+[CreateAssetMenu(fileName = "WeaponData", menuName = "Weapons/WeaponDataSO")]
 public class WeaponDataSO : ScriptableObject
 {
     [Header("Stats")]

@@ -21,6 +21,7 @@ public class PlayerShooting : MonoBehaviour
     private bool isFiring = false;
     private Animator animator;
     private PlayerStats stats;
+    private CameraRelativeInput cameraRelative;
     
 
     private void Awake()
@@ -34,6 +35,7 @@ public class PlayerShooting : MonoBehaviour
     private void Start()
     {
         stats = GetComponent<PlayerStats>();
+        cameraRelative = GetComponent<CameraRelativeInput>();
     }
 
     private void Update()
@@ -55,22 +57,13 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    public Vector3 AimDirection => new Vector3(aimJoystick.Direction.x, 0f, aimJoystick.Direction.y);
-
-    // private void RotateTowardsAim(Vector2 dir)
-    // {
-    //     // playerBody.rotation = Quaternion.Euler(new Vector3(dir.x, 0f, dir.y));
-    //     Vector3 aimDir = new Vector3(dir.x, 0f, dir.y);
-    //     Quaternion targetRot = Quaternion.LookRotation(aimDir);
-    //     playerBody.rotation = Quaternion.RotateTowards(
-    //         playerBody.rotation, targetRot, rotateSpeed * Time.deltaTime);
-    // }
+    public Vector3 AimDirection => cameraRelative.Convert(aimJoystick.Direction);
 
     private void RotateTowardsAim(Vector2 dir)
     {
-        Vector3 aimDir = new Vector3(dir.x, 0f, dir.y);
-        if (aimDir.sqrMagnitude < 0.0001f) 
-            return; 
+        Vector3 aimDir = cameraRelative.Convert(dir);
+        if (aimDir.sqrMagnitude < 0.0001f)
+            return;
 
         playerBody.rotation = Quaternion.LookRotation(aimDir);
     }

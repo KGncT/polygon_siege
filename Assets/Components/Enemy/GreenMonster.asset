@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataSO
   enemyName: Green Monster
   sprite: {fileID: 0}
+  material: {fileID: 2100000, guid: 51c56250d83b8f843a832c184df8bdb0, type: 2}
   damage: 10
   speed: 1
   maxHealth: 100

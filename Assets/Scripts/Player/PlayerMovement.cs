@@ -14,17 +14,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator animator;
     private PlayerShooting playerShooting;
     private PlayerStats stats;
+    private CameraRelativeInput cameraRelative;
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>(); // opsiyonel, null olabilir
         // animator = GetComponent<Animator>();
         playerShooting = GetComponent<PlayerShooting>();
+        
     }
 
     private void Start()
     {
         stats = GetComponent<PlayerStats>();
+        cameraRelative = GetComponent<CameraRelativeInput>();
     }
 
     private void Update()
@@ -38,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         if (fourDirectionalMove)
             input = SnapToFourDirections(input);
 
-        currentMoveDir = new Vector3(input.x, 0f, input.y);
+        currentMoveDir = cameraRelative.Convert(input);
 
         if (currentMoveDir.sqrMagnitude > 0.0001f)
         {
